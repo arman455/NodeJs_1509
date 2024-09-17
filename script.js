@@ -6,7 +6,7 @@ const PORT = 8000;
 const HOST = 'localhost';
 
 function getDate(){
-    const time = console.log(moment().format("YYYY/MM/DD  HH:mm:ss"));
+    const time = moment().format("YYYY/MM/DD  HH:mm:ss");
     return time;
 }
 
