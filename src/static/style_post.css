@@ -1,0 +1,14 @@
+.post{
+    max-height: 600px;
+    max-width: 200px;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(40, 40, 40);
+}

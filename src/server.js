@@ -6,8 +6,31 @@ const app = express();
 const PORT = 8000;
 const HOST = 'localhost';
 
-app.use("/static/",express.static(path.join(__dirname, 'static/')));
 
+app.set('view engine', 'ejs');
+
+app.set('views', path.join(__dirname, 'templates'))
+
+app.use('/static/', express.static(path.join(__dirname, 'static')));
+
+// res.sendFile(path.resolve(__dirname, './templates/posts.ejs'));
+
+
+app.get('/post', (req, res) =>{
+
+    // res.sendFile(path.join(__dirname, './templates/posts.html'));
+
+    const context = {
+        posts: [{name: "14AER280R", author: "John"}, {name: "YE289VB31", author: "Kate"}]
+    }
+    
+    res.render('posts', context);
+});
+
+
+
+
+app.use("/static/",express.static(path.join(__dirname, 'static/')));
 
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, './templates/index.html'));
