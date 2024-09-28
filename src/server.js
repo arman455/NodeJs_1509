@@ -16,8 +16,8 @@ app.use('/static/', express.static(path.join(__dirname, 'static')));
 // res.sendFile(path.resolve(__dirname, './templates/posts.ejs'));
 
 
-app.get('/user', (req, res) => {
-    res.sendFile(path.join(__dirname, "./templates/user.ejs"));
+app.get('/users', (req, res) => {
+    res.sendFile(path.join(__dirname, "./templates/users.html"));
 })
 
 
