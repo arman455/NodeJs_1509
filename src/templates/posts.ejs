@@ -4,14 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style_post.css">
-    <title>Post</title>
+    <title>All posts</title>
 </head>
 <body>
-    <h1>Posts:</h1> 
+    <h1 class="font">All Posts:</h1> 
     <% posts.forEach((post) => { %>
         <div class="post">
-            <h2>Ім'я: <%= post.name %></h2>
-            <p>Автор: <%= post.author %></p>
+            <h1>Ім'я: <%= post.name %></h1>
+            <h2>Автор: <%= post.author %></h2>
+            <p>Опис: <%= post.description %></p>
+            <p>Час: <%= post.time %></p>
         </div>
     <%})%>
 </body>
