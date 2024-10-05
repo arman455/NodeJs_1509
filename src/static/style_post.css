@@ -22,3 +22,8 @@ body {
 .font{
     color: beige;
 }
+
+.button{
+    height: 50px;
+    width: 100px;
+}

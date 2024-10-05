@@ -9,6 +9,7 @@ const HOST = 'localhost';
 
 
 app.set('view engine', 'ejs');
+app.use(express.json());
 
 app.set('views', path.join(__dirname, 'templates'))
 
@@ -25,6 +26,16 @@ const posts = [{name: "14AER280R", author: "John", description: "Життя – 
     {name: "YE289VB31", author: "Kate", description: "Мандруй туди, де душа знаходить спокій.", time: getDate()},
     {name: "NT963JL65", author: "Dan", description: "Знання – це сила! Кожен день приносить нові можливості дізнатися більше і зрости.  ", time: getDate()},
     {name: "LP754DZ26", author: "Sarbina", description: "Піклуйся про себе сьогодні, щоб завтра почуватися ще краще!  ", time: getDate()}]
+
+
+
+app.post('/post/create', (req, res) => {
+
+    const data = req.body;
+    posts.push(data);
+    res.send("okay");
+    console.log("1");
+})
 
 
 
