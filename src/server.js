@@ -8,10 +8,11 @@ const PORT = 8000;
 const HOST = 'localhost';
 const post_router = require('./routers/post_router');
 
+app.use(express.json());
+
 app.use('/post/', post_router);
 
 app.set('view engine', 'ejs');
-app.use(express.json());
 
 app.set('views', path.join(__dirname, 'templates'))
 

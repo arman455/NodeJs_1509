@@ -17,7 +17,6 @@ function allPosts(req, res) {
 
 function createPost (req, res) {
     const data = req.body;
-    posts.push(data);
     post_service.createPost(data);
     res.send("okay");
 }
@@ -29,19 +28,17 @@ function getPostById (req, res) {
     const data = post_service.getPostById(id);
     if (id > 0 && id <= data.length){
         res.render('post', data.context)}
-    // }else {
-    //     const context = {
-    //         message: "Такого поста не існує!",
-    //         link: "/post/all"
-    //     };
-    //     res.render('error', context); 
-    //     // res.status(404).send(`  - 2 спосіб реалізації нествореного посту!!!
-    //     //     <h1>404 - Такого поста не існує!</h1>
-    //     //     <a href="/posts">All posts</a>
-    //     // `);
-    // }
-
-}
+    else {
+        const context = {
+            message: "Такого поста не існує!",
+            link: "/post/all"
+        };
+        res.render('error', context); 
+        // res.status(404).send(`  - 2 спосіб реалізації нествореного посту!!!
+        //     <h1>404 - Такого поста не існує!</h1>
+        //     <a href="/posts">All posts</a>
+        // `);
+    }}
 
 module.exports = {
     createPost: createPost,
