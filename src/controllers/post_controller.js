@@ -41,10 +41,10 @@ function getPostByIdController(req, res) {
         // `);
     }
 }
-const post_controller = {
+const postController = {
     allPosts: allPostsController,
     createPost: createPostController,
     getPostById: getPostByIdController,
     getDate: getDateController
 };
-exports.default = post_controller;
+exports.default = postController;
