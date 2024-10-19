@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import  post_service   from "./../src/services/post_service";
+import  post_service   from "../../src/services/post_service";
 
 const prisma = new PrismaClient()
 
@@ -56,7 +56,19 @@ async function findPosts() {
 async function deletePost() {
     const post = await prisma.post.delete({
         where: {
-            id: 2
+            id: 1
+        }
+    })
+    console.log(post)
+}
+
+async function findPostToComents(){
+    const post = await prisma.post.findUnique({
+        where: {
+            id: 1
+        },
+        include: {
+            Coment: true
         }
     })
     console.log(post)
