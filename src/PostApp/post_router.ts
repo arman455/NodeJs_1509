@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express'
 const router = express.Router();
-import postController from '../controllers/post_controller';
+import postController from './post_controller';
 
 router.post('/create', postController.createPost)
 

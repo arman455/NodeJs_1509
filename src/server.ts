@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express'
 import path from 'path';
 import moment from "moment"
-import postRouter from './routers/post_router';
+import postRouter from './PostApp/post_router';
 
 // const express = require("express");
 

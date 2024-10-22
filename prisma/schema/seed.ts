@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import  post_service   from "../../src/services/post_service";
+import  post_service   from "../../src/PostApp/post_service";
 
 const prisma = new PrismaClient()
 
@@ -10,20 +10,20 @@ async function createPost(){
             name: "post1",
             author: "sema",
             description: "zxc",
-            time: time
+            time: String(time)
         }
     })
     console.log(post)
 }
 
-async function createPosts(){
+// async function createPosts(){
 
-    const posts = await post_service.allPosts(4).posts;
-    const createPosts = await prisma.post.createMany({
-        data: posts
-    })
-    console.log(createPosts)
-}
+//     const posts = await post_service.allPosts(4).posts;
+//     const createPosts = await prisma.post.createMany({
+//         data: posts
+//     })
+//     console.log(createPosts)
+// }
 
 async function updatePost() {
 
@@ -80,7 +80,7 @@ async function main(){
     await findPosts();
     await findPost();
     await updatePost();
-    await createPosts();
+    // await createPosts();
 }
 
 main().then(() => {
