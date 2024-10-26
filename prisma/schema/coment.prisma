@@ -4,5 +4,8 @@ model Coment {
   title  String
   image  String?
   postid Int
+  userId Int
   Post   Post    @relation(fields: [postid], references: [id])
+  User User @relation(fields: [userId], references: [id])
+  
 }

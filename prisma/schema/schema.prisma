@@ -14,5 +14,8 @@ model Post {
   author      String
   description String?
   time        String
+  userId      Int
   Coment      Coment[]
+  User User @relation(fields: [userId], references: [id])
+  
 }

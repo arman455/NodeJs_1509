@@ -2,6 +2,7 @@ import express, { Express, Request, Response } from 'express'
 import path from 'path';
 import moment from "moment"
 import postRouter from './PostApp/post_router';
+import userRouter from './RegAuthApp/userRouter';
 
 // const express = require("express");
 
@@ -10,6 +11,10 @@ const PORT = 8000;
 const HOST = 'localhost';
 
 app.use(express.json());
+
+app.use('/', userRouter);
+
+
 
 app.use('/post/', postRouter);
 

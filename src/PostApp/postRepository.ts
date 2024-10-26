@@ -2,6 +2,8 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import  post_service   from "../../src/PostApp/post_service";
 import client from '../Client/prismaClient';
 
+const prisma = new PrismaClient();
+
 async function getAllPosts(){
     try{
         let posts = await client.post.findMany({
@@ -51,30 +53,57 @@ async function getPostById(id: number){
     }
 }
 
-async function createPost(data: Prisma.PostCreateInput){
-    try{
-        const time = post_service.getDate();
-        let post = await client.post.create({
-            data: data
-        })
-        return post
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
+async function createPost() {
+    // Создание объекта поста с необходимыми полями
+    const newPost = {
+        name: 'My New Post',           // Обязательное поле
+        author: 'John Doe',            // Обязательное поле
+        description: 'This is a description of my new post.', // Необязательное поле
+        time: new Date().toISOString(), // Обязательное поле (можно использовать текущую дату/время)
+        userId: 1                       // Предполагается, что пользователь с id 1 существует
+    };
+
+    try {
+        const post = await prisma.post.create({
+            data: newPost, // Используем объект newPost для создания поста
+        });
+        console.log('Post created:', post);
+    } catch (error) {
+        console.error('Error creating post:', error);
+    } finally {
+        await prisma.$disconnect(); // Закрываем соединение с базой данных
     }
-}  
+}
+
+
+
+
+
+
+
+    // try{
+    //     const time = post_service.getDate();
+    //     let post = await client.post.create({
+    //         data: data
+    //     })
+    //     return post
+    // } catch(err){
+    //     if (err instanceof Prisma.PrismaClientKnownRequestError){
+    //         if (err.code == 'P2002'){
+    //             console.log(err.message);
+    //             throw err;
+    //         }
+    //         if (err.code == 'P2015'){
+    //             console.log(err.message);
+    //             throw err;
+    //         }
+    //         if (err.code == 'P20019'){
+    //             console.log(err.message);
+    //             throw err;
+    //         }
+    //     }
+    // }
+
 
 async function createPosts() {
     try{

@@ -9,10 +9,10 @@ type Post = {
 };
 
 
-// const posts: Post[] = [{name: "14AER280R", author: "John", description: "Життя – це низка виборів, і кожен новий день дає нам можливість рухатися вперед.", time: getDate()},
-//     {name: "YE289VB31", author: "Kate", description: "Мандруй туди, де душа знаходить спокій.", time: await getDate()},
-//     {name: "NT963JL65", author: "Dan", description: "Знання – це сила! Кожен день приносить нові можливості дізнатися більше і зрости.  ", time: getDate()},
-//     {name: "LP754DZ26", author: "Sarbina", description: "Піклуйся про себе сьогодні, щоб завтра почуватися ще краще!  ", time: getDate()}]
+const posts: Post[] = [{name: "14AER280R", author: "John", description: "Життя – це низка виборів, і кожен новий день дає нам можливість рухатися вперед.", time: "2024-09-11"},
+    {name: "YE289VB31", author: "Kate", description: "Мандруй туди, де душа знаходить спокій.", time: "2024-09-10"},
+    {name: "NT963JL65", author: "Dan", description: "Знання – це сила! Кожен день приносить нові можливості дізнатися більше і зрости.  ", time: "2024-09-13"},
+    {name: "LP754DZ26", author: "Sarbina", description: "Піклуйся про себе сьогодні, щоб завтра почуватися ще краще!  ", time: "2024-09-12"}]
 
 
 async function allPosts (max: number){
@@ -30,8 +30,9 @@ async function allPosts (max: number){
 async function createPost(data: Post){
 
     const context = {
-        post : await postRepository.createPost(data)
+        post : await postRepository.createPost()
     }
+    
 
     return context
 }

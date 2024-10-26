@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
-    "server": "npx ts-node scr/server.ts"
+    "server": "npx ts-node src/server.ts"
   },
   "author": "",
   "license": "ISC",
