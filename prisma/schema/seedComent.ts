@@ -9,6 +9,7 @@ async function createComent(){
     const coment = await prisma.coment.create({
         data: {
             body: "zxczxczxc",
+            userId: 1,
             title: "Coment1",
             image: "https://gas-kvas.com/uploads/posts/2023-01/1673411839_gas-kvas-com-p-anime-risunki-dead-inside-3.jpg",
             postid: 1
@@ -22,12 +23,14 @@ async function createComents(){
     const coments = await prisma.coment.createMany({
         data: [
             {
+                userId: 1,
                 body: "qwerty",
                 title: "Coment2",
                 image: "https://www.meme-arsenal.com/memes/262dcc2f4e9d11500a0a0d7db224e11c.jpg",
                 postid: 1
             },
             {
+                userId: 1,
                 body: "Пищи нет вкуснее каши, старий бог...",
                 title: "Coment3",
                 image: "https://www.meme-arsenal.com/memes/262dcc2f4e9d11500a0a0d7db224e11c.jpg",

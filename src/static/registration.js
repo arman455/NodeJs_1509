@@ -1,3 +1,8 @@
+const username = document.querySelector(".login")
+const email = document.querySelector(".email")
+const password = document.querySelector(".password")
+
+
 form.addEventListener('submit', (event)=>{
     event.preventDefault()
     fetch('', {

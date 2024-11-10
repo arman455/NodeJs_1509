@@ -8,9 +8,7 @@ async function findUserByEmail(email: string) {
                 email: email
             }
         });
-        if (!user) {
-            return "Not Found";
-        }
+        
         return user;
 
     } catch (err) {

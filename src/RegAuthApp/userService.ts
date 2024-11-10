@@ -8,28 +8,33 @@ async function login(email: string, password: string) {
         return null;
     }
 
-    if (user === "Not Found") {
-        return null;
-    }
+    // if (user === "Not Found") {
+    //     return null;
+    // }
 
-    if (password == user.password) {
-        const newUser = {
-            password: user.password
-        }
-    } else {
-        return null;
+    // JWT
+
+    if (!user){
+        return "error";
     }
+    if (user.password != password){
+        return "error";
+    }
+    return user;
+
 }
 
 async function register(email: string, password: string) {
 
     const existingUser = await userRepository.findUserByEmail(email);
+    console.log(existingUser);
 
-    if (existingUser && existingUser !== "Not Found") {
+    if (existingUser && !existingUser ) {
+        console.log(existingUser);
         return "User exists";
     }
 
-    if (existingUser === "Not Found") {
+    if (!existingUser) {
         const newUserData = {
             email: email,
             password: password, 
@@ -40,6 +45,7 @@ async function register(email: string, password: string) {
         const newUser = await userRepository.createUser(newUserData);
         return newUser;
     }
+    console.log(existingUser);
 
 }
 

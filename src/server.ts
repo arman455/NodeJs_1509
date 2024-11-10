@@ -1,7 +1,7 @@
 import express, { Express, Request, Response } from 'express'
 import path from 'path';
 import moment from "moment"
-import postRouter from './PostApp/post_router';
+import router from './PostApp/postRouter';
 import userRouter from './RegAuthApp/userRouter';
 
 // const express = require("express");
@@ -14,9 +14,7 @@ app.use(express.json());
 
 app.use('/', userRouter);
 
-
-
-app.use('/post/', postRouter);
+app.use('/post/', router);
 
 app.set('view engine', 'ejs');
 
