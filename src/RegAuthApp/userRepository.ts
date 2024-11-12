@@ -12,6 +12,7 @@ async function findUserByEmail(email: string) {
         return user;
 
     } catch (err) {
+        console.log(err);
         if (err instanceof Prisma.PrismaClientKnownRequestError){
             if (err.code == 'P2002'){
                 console.log(err.message);
@@ -29,19 +30,15 @@ async function findUserByEmail(email: string) {
     }
 }
 
-async function createUser(data: { email: string, password: string, username: string, role: string }) {
+async function createUser(data: Prisma.UserCreateInput) {
     try {
-        const newUser = await client.user.create({
-            data: {
-                email: data.email,
-                password: data.password,
-                username: data.username,
-                role: data.role
-            }
+        const user = await client.user.create({
+            data: data
         });
-        return newUser;
+        return user;
 
     } catch (err) {
+        console.log(err)
         if (err instanceof Prisma.PrismaClientKnownRequestError){
             if (err.code == 'P2002'){
                 console.log(err.message);

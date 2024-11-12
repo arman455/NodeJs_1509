@@ -1,51 +1,61 @@
 import userRepository from "./userRepository";
+import { Prisma } from "@prisma/client";
 
-async function login(email: string, password: string) {
+interface IUserError{
+    status: "Error",
+    message: string;
+}
+
+interface IUserSuccess{
+    status: "Success",
+    data: IUser;
+}
+
+interface IUser{
+    id: number;
+    username: string;
+    email: string;
+    password: string;
+}
+
+
+async function login(email: string, password: string): Promise< IUserError | IUserSuccess> {
 
     const user = await userRepository.findUserByEmail(email);
 
-    if (user === undefined) {
-        return null;
-    }
-
-    // if (user === "Not Found") {
-    //     return null;
-    // }
-
-    // JWT
-
     if (!user){
-        return "error";
+        return { status: "Error", message: "User not found"};
     }
     if (user.password != password){
-        return "error";
+        return { status: "Error", message: "Password is incorrect" };
     }
-    return user;
+    return { status: "Success", data: user};
 
 }
 
-async function register(email: string, password: string) {
+async function register(data: Prisma.UserCreateInput): Promise< IUserError | IUserSuccess>{
 
-    const existingUser = await userRepository.findUserByEmail(email);
-    console.log(existingUser);
+    const user = await userRepository.findUserByEmail(data.email)
+    console.log(user);
 
-    if (existingUser && !existingUser ) {
-        console.log(existingUser);
-        return "User exists";
+    if (user) {
+        return { status: "Error", message: "User exists!"};
     }
 
-    if (!existingUser) {
-        const newUserData = {
-            email: email,
-            password: password, 
-            role: 'user',       
-            username: 'user'
-        };
-
-        const newUser = await userRepository.createUser(newUserData);
-        return newUser;
+    const userData = {
+        username: data.username,
+        email: data.email,
+        password: data.password,
+        role: "user"
     }
-    console.log(existingUser);
+
+    const newUser = await userRepository.createUser(userData);
+
+    if (!newUser) {
+        return { status: "Error", message: "User not create!"};
+    }
+
+    return { status: "Success", data: newUser};
 
 }
 

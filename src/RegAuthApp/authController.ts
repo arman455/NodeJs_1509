@@ -3,23 +3,20 @@ import userService from './userService';
 import { SECRET_KEY } from '../config/token'
 import { sign } from 'jsonwebtoken'
 
-async function authLogin(req: Request, res: Response){
-    const data = {
-        email: req.body.email,
-        password: req.body.password
-    }
-    const user = await userService.login(String(data.email), String(data.password));
+async function authLogin(req: Request, res: Response) {
 
-    if (user) {
-        res.cookie('user', data)
-        res.sendStatus(200).json({ message: 'Login successful', user });
-    } else {
-        res.status(401).json({ message: 'Invalid!', user });
-        return
+    const data = req.body
+    const user = await userService.login(data.email, data.password);
+
+    if (user.status === 'Error'){
+        res.send(user.message)
+        return 
     }
 
     const token = sign(user, SECRET_KEY, {expiresIn: '1h'})
     res.cookie('token', token)
+    res.status(200)
+    res.send("Welcome")
 }
 
 async function authGetLogin(req: Request, res: Response){
