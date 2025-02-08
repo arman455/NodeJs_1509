@@ -27,3 +27,12 @@ body {
     height: 50px;
     width: 100px;
 }
+
+.buttonDel{
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    height: 50px;
+    width: 100px;
+    background-color: red;
+}

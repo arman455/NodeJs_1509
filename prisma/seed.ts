@@ -7,13 +7,14 @@ async function createPost(){
     const time = getDate();
     const post = await prisma.post.create({
         data: {
-            name: "YE289VB31", 
-            author: "Kate", 
-            description: "Мандруй туди, де душа знаходить спокій.", 
-            time: getDate(), 
-            userId: 1
+            name: "S56E98M1EN", 
+            author: "Sema", 
+            description: "Пока я дрочу на Юлю, Старий Бог ебет бабулю.", 
+            time: time, 
+            userId: 2
         }
     })
+    return post;
 
 }
 
@@ -24,12 +25,13 @@ function getDate(){
 
 async function createUser(){
     const user = await prisma.user.create({
-        data: {username: "sema",
+        data: {
+            username: "sema",
             email: "sema@gmail.com",
             password: "12345678",
-            role: "administrator",
+            role: "admin",
         }
-    });
+    })
 }
 
 async function createPosts(){
@@ -92,15 +94,16 @@ async function findPostToComents(){
 }
 
 async function main(){
+    // await createUser;
     // await createPost();
-    await deletePost();
-    await findPosts();
-    await findPost();
-    await updatePost();
+    // await deletePost();
+    // await findPosts();
+    // await findPost();
+    // await updatePost();
     // await createPosts();
 }
 
-createPosts().then(() => {
+main().then(() => {
     prisma.$disconnect()
 }).catch((err) => {
     console.log(err)

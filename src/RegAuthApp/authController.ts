@@ -16,7 +16,7 @@ async function authLogin(req: Request, res: Response) {
     const token = sign(user, SECRET_KEY, {expiresIn: '1h'})
     res.cookie('token', token)
     res.status(200)
-    res.send("Welcome")
+    res.send("Ви увійшли!")
 }
 
 async function authGetLogin(req: Request, res: Response){

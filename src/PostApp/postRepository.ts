@@ -1,235 +1,90 @@
 import { Prisma, PrismaClient } from '@prisma/client';
-import client from '../Client/prismaClient';
 
-const prisma = new PrismaClient();
+const client = new PrismaClient();
 
-async function getAllPosts(){
-    try{
-        let posts = await client.post.findMany({
-        
-        })
-        return posts
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
+async function getAllPosts() {
+    try {
+        const posts = await client.post.findMany();
+        return posts;
+    } catch (error) {
+        console.error(error);
+        return null;
     }
 }
-async function getPostById(id: number){
-    try{
-        let post = await client.post.findUnique({
-            where:{
-                id: id
-            }
-        })
-        return post
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
+
+async function getPostById(id: number) {
+    try {
+        const post = await client.post.findUnique({
+            where: { id },
+        });
+        return post;
+    } catch (error) {
+        console.error(error);
+        return null;
     }
 }
 
 async function createPost(data: Prisma.PostCreateInput) {
     try {
-        const post = await prisma.post.create({
-            data: data
-        });
-        console.log('Post created:', post);
+        const post = await client.post.create({ data });
         return post;
     } catch (error) {
-        console.error('Error creating post:', error);
+        console.error(error);
+        return null;
     }
 }
 
-async function createPosts(data: Prisma.PostCreateManyInput) {
-    try{
-        const createPosts = await client.post.createMany({
-            data: data
-        });
-        console.log(createPosts);
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
-    }
-}
-
-async function updatePost(id: number, data: Prisma.PostUpdateInput) {
-    try{
-        const post = await client.post.update({
-            where: {
-                id: id
-            },
-
-            data: data
-        })
-        console.log(post)
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
-    }
-
-}
-
-async function findPost() {
-    try{
-        const post = await client.post.findUnique({
-            where: {
-                id: 2
-            }
-        })
-        console.log(post)
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
-    }
-}
-
-async function findPosts() {
-    try {    
-        const post = await client.post.findMany()
-        console.log(post)
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
-    }
-}
-
-async function deletePost() {
-    try{
+async function deletePost(id: number) {
+    try {
         const post = await client.post.delete({
-            where: {
-                id: 1
-            }
-        })
-        console.log(post)
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
-    }
+            where: { id },
+        });
 
+        return post;
+    } catch (error) {
+        console.error('Error deleting post:', error);
+        return null;
+    }
 }
 
-async function findPostToComents(){
-    try{
+async function getAllPostsWithComments() {
+    try {
+        const posts = await client.post.findMany({
+            include: {
+                Coment: true,
+            },
+        });
+        return posts;
+    } catch (error) {
+        console.error('Error fetching posts with comments:', error);
+        return null;
+    }
+}
+
+async function getPostWithCommentsById(postId: number) {
+    try {
         const post = await client.post.findUnique({
             where: {
-                id: 1
+                id: postId,
             },
             include: {
-                Coment: true
-            }
-        })
-        console.log(post)
-    } catch(err){
-        if (err instanceof Prisma.PrismaClientKnownRequestError){
-            if (err.code == 'P2002'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P2015'){
-                console.log(err.message);
-                throw err;
-            }
-            if (err.code == 'P20019'){
-                console.log(err.message);
-                throw err;
-            }
-        }
+                Coment: true,
+            },
+        });
+        return post;
+    } catch (error) {
+        console.error('Error fetching post with comments:', error);
+        return null;
     }
 }
 
-const productRepository = {
-    getAllProducts:getAllPosts,
-    getPostById:getPostById,
-    createPost:createPost,
-    findPostToComents:findPostToComents,
-    deletePost:deletePost,
-    findPosts:findPosts,
-    findPost:findPost,
-    updatePost:updatePost,
-    createPosts:createPosts,
-}
-export default productRepository
+const postRepository = {
+    getAllPosts,
+    getPostById,
+    createPost,
+    deletePost,
+    getAllPostsWithComments,
+    getPostWithCommentsById
+};
+
+export default postRepository;

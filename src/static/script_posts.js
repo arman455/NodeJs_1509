@@ -9,7 +9,8 @@ button.addEventListener('click', () => {
             name: "zxczxczxc",
             author: "sema..",
             description: "Блюда нет вкусней борща старий бог...",
-            time: "05.10.2024 20:56"
+            time: "05.10.2024 20:56",
+            userId: 1
         }),
         headers: {
             'Content-Type': 'application/json'

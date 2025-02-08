@@ -8,7 +8,6 @@ async function authRegistrtation (req: Request, res: Response){
     const data = req.body
     console.log(data)
     const result  = await userService.register(data);
-    console.log(result)
 
     if (result.status === 'Error') {
         res.send(result.message)
@@ -18,7 +17,7 @@ async function authRegistrtation (req: Request, res: Response){
     const token = sign(result.data, SECRET_KEY, {expiresIn: "1h"})
     res.cookie('token', token)
     res.status(200)
-    res.send("Successfully registered")
+    res.send("Ви зареєстровані!")
 
 }
 

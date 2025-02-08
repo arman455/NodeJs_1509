@@ -33,7 +33,7 @@ async function findUserByEmail(email: string) {
 async function createUser(data: Prisma.UserCreateInput) {
     try {
         const user = await client.user.create({
-            data: data
+            data: data,
         });
         return user;
 

@@ -8,4 +8,6 @@ router.get('/all', postController.allPosts)
 
 router.get('/:id', postController.getPostById)
 
+router.delete('/delete/:id', postController.deletePost)
+
 export default router;

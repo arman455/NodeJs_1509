@@ -1,7 +1,18 @@
-window.addEventListener('beforeunload', function (event) {
+const buttonDel = document.querySelector('.buttonDel');
+const id = document.querySelector('#id');
 
-    const confirmationMessage = 'Вы уверены, что хотите покинуть страницу?';
+buttonDel.addEventListener('click', () => {
+    let postId = buttonDel.getAttribute('data-post-id')
 
-    event.returnValue = confirmationMessage;
-    return confirmationMessage;
+    fetch(`/post/delete/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => {
+        if (response.ok) {
+            window.location.href = '/post/all';
+        }}) 
+
 });
