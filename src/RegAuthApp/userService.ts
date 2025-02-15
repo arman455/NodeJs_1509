@@ -1,45 +1,29 @@
+import { IError, ISuccess } from "../types/type";
 import userRepository from "./userRepository";
 import { Prisma } from "@prisma/client";
+import { CreateUser, User } from './types'
 
-interface IUserError{
-    status: "Error",
-    message: string;
-}
-
-interface IUserSuccess{
-    status: "Success",
-    data: IUser;
-}
-
-interface IUser{
-    id: number;
-    username: string;
-    email: string;
-    password: string;
-}
-
-
-async function login(email: string, password: string): Promise< IUserError | IUserSuccess> {
+async function login(email: string, password: string): Promise< ISuccess<User> | IError > {
 
     const user = await userRepository.findUserByEmail(email);
 
     if (!user){
-        return { status: "Error", message: "User not found"};
+        return { status: "error", message: "User not found"};
     }
     if (user.password != password){
-        return { status: "Error", message: "Password is incorrect" };
+        return { status: "error", message: "Password is incorrect" };
     }
-    return { status: "Success", data: user};
+    return { status: "success", data: user};
 
 }
 
-async function register(data: Prisma.UserCreateInput): Promise< IUserError | IUserSuccess>{
+async function register(data: CreateUser): Promise< IError | ISuccess<User>>{
 
     const user = await userRepository.findUserByEmail(data.email)
     console.log(user);
 
     if (user) {
-        return { status: "Error", message: "User exists!"};
+        return { status: "error", message: "User exists!"};
     }
 
     const userData = {
@@ -52,10 +36,10 @@ async function register(data: Prisma.UserCreateInput): Promise< IUserError | IUs
     const newUser = await userRepository.createUser(userData);
 
     if (!newUser) {
-        return { status: "Error", message: "User not create!"};
+        return { status: "error", message: "User not create!"};
     }
 
-    return { status: "Success", data: newUser};
+    return { status: "success", data: newUser};
 
 }
 

@@ -1,31 +1,9 @@
 import postRepository from "./postRepository";
 import { Prisma } from '@prisma/client';
+import { IError, ISuccess } from "../types/type";
+import { CreatePost, Post } from './type'
 
-interface IPost {
-    id: number;
-    name: string;
-    author: string;
-    description: string | null;
-    time: string;
-    userId: number;
-}
-
-interface IPostSuccess {
-    status: 'success';
-    data: IPost;
-}
-
-interface IPostError {
-    status: 'error';
-    message: string;
-}
-
-interface IPostsSuccess {
-    status: 'success';
-    data: IPost[];
-}
-
-async function allPosts(): Promise<IPostsSuccess | IPostError> {
+async function allPosts(): Promise<ISuccess<Post[]> | IError> {
     try {
         const posts = await postRepository.getAllPosts();
 
@@ -40,7 +18,7 @@ async function allPosts(): Promise<IPostsSuccess | IPostError> {
     }
 }
 
-async function createPost(data: Prisma.PostCreateInput): Promise<IPostSuccess | IPostError> {
+async function createPost(data: CreatePost): Promise<ISuccess<Post> | IError> {
     try {
         const post = await postRepository.createPost(data);
 
@@ -55,7 +33,7 @@ async function createPost(data: Prisma.PostCreateInput): Promise<IPostSuccess | 
     }
 }
 
-async function getPostById(id: number): Promise<IPostSuccess | IPostError> {
+async function getPostById(id: number): Promise<ISuccess<Post> | IError> {
     try {
         const post = await postRepository.getPostById(id);
 
@@ -70,7 +48,7 @@ async function getPostById(id: number): Promise<IPostSuccess | IPostError> {
     }
 }
 
-async function deletePost(id: number): Promise<IPostSuccess | IPostError> {
+async function deletePost(id: number): Promise<ISuccess<Post> | IError> {
     try {
         const post = await postRepository.deletePost(id);
 

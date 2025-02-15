@@ -1,4 +1,5 @@
 import { Prisma, PrismaClient } from '@prisma/client';
+import { CreateComment } from './types';
 
 const client = new PrismaClient();
 
@@ -16,7 +17,7 @@ async function getCommentsByPostId(postid: number) {
     }
 }
 
-async function createComment(data: Prisma.ComentCreateInput) {
+async function createComment(data: CreateComment) {
     try {
         const comment = await client.coment.create({ data });
         return comment;

@@ -1,31 +1,8 @@
+import { IError, ISuccess } from "../types/type";
 import commentRepository from "./commentRepository";
-import { Prisma } from '@prisma/client';
+import { Comment, CreateComment } from "./types";
 
-interface IComment {
-    id: number;
-    body: string;
-    title: string;
-    image?: string | null;
-    postid: number;
-    userId: number;
-}
-
-interface ICommentSuccess {
-    status: 'success';
-    data: IComment;
-}
-
-interface ICommentError {
-    status: 'error';
-    message: string;
-}
-
-interface ICommentsSuccess {
-    status: 'success';
-    data: IComment[];
-}
-
-async function getCommentsByPostId(postid: number): Promise<ICommentsSuccess | ICommentError> {
+async function getCommentsByPostId(postid: number): Promise<ISuccess<Comment[]> | IError> {
     try {
         const comments = await commentRepository.getCommentsByPostId(postid);
 
@@ -40,7 +17,7 @@ async function getCommentsByPostId(postid: number): Promise<ICommentsSuccess | I
     }
 }
 
-async function createComment(data: Prisma.ComentCreateInput): Promise<ICommentSuccess | ICommentError> {
+async function createComment(data: CreateComment): Promise<ISuccess<Comment> | IError> {
     try {
         const comment = await commentRepository.createComment(data);
 

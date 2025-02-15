@@ -1,4 +1,5 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
+import { CreatePost } from './type';
 
 const client = new PrismaClient();
 
@@ -24,7 +25,7 @@ async function getPostById(id: number) {
     }
 }
 
-async function createPost(data: Prisma.PostCreateInput) {
+async function createPost(data: CreatePost) {
     try {
         const post = await client.post.create({ data });
         return post;
