@@ -9,7 +9,7 @@ async function authRegistrtation (req: Request, res: Response){
     console.log(data)
     const result  = await userService.register(data);
 
-    if (result.status === 'Error') {
+    if (result.status === 'error') {
         res.send(result.message)
         return
     }

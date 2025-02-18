@@ -3,14 +3,26 @@ import path from 'path';
 import moment from "moment"
 import router from './PostApp/postRouter';
 import userRouter from './RegAuthApp/userRouter';
+import postRouterApi from './PostApp/postRouterApi';
+import commentRouterApi from './CommentsApp/commentRouterApi';
+import cors from 'cors'
 
-// const express = require("express");
 
 const app: Express = express();
 const PORT = 8000;
 const HOST = 'localhost';
 
-app.use(express.json());
+app.use(express.json())
+
+app.use(cors({
+    origin: ['http://localhost:3000']
+}));
+
+
+app.use('/api/post/', postRouterApi)
+app.use('/api/comment/', commentRouterApi)
+
+
 
 app.use('/', userRouter);
 
@@ -22,7 +34,6 @@ app.set('views', path.join(__dirname, 'templates'))
 
 app.use('/static/', express.static(path.join(__dirname, 'static')));
 
-// res.sendFile(path.resolve(__dirname, './templates/posts.ejs'));
 
 app.get('/users', (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "./templates/users.html"));
@@ -47,5 +58,3 @@ app.get('/date', (req: Request, res: Response) => {
 app.listen(PORT, HOST, () =>{
     console.log("server is running")
 })
-
-// console.log(getDate());

@@ -8,7 +8,7 @@ async function authLogin(req: Request, res: Response) {
     const data = req.body
     const user = await userService.login(data.email, data.password);
 
-    if (user.status === 'Error'){
+    if (user.status === 'error'){
         res.send(user.message)
         return 
     }
