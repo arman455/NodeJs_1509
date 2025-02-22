@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node src/server.js",
     "server": "npx ts-node src/server.ts",
-    "prisma:seed": "ts-node prisma/seed.ts"
+    "prisma:seed": "ts-node prisma/seed.ts",
+    "migrate": "prisma migrate dev"
   },
   "author": "",
   "license": "ISC",
@@ -25,7 +26,8 @@
     "path": "^0.12.7",
     "prisma": "^5.21.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "typescript": "^5.6.3",
+    "problemMatcher": "$nodemon"
   },
   "devDependencies": {
     "@types/node": "^22.7.5"

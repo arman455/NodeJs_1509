@@ -5,6 +5,7 @@ import router from './PostApp/postRouter';
 import userRouter from './RegAuthApp/userRouter';
 import postRouterApi from './PostApp/postRouterApi';
 import commentRouterApi from './CommentsApp/commentRouterApi';
+import tagsControllerApi from './TagsApp/tagsRouter';
 import cors from 'cors'
 
 
@@ -21,6 +22,7 @@ app.use(cors({
 
 app.use('/api/post/', postRouterApi)
 app.use('/api/comment/', commentRouterApi)
+app.use('/api/tags/', tagsControllerApi)
 
 
 

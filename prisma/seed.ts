@@ -11,7 +11,18 @@ async function createPost(){
             author: "Sema", 
             description: "Пока я дрочу на Юлю, Старий Бог ебет бабулю.", 
             time: time, 
-            userId: 2
+            userId: 2,
+            tagId: 1
+        }
+    })
+    return post;
+
+}
+
+async function createTag(){
+    const post = await prisma.tags.create({
+        data: {
+            name: "Старый Бог",
         }
     })
     return post;
@@ -37,10 +48,10 @@ async function createUser(){
 async function createPosts(){
 
     const posts = await prisma.post.createMany({
-        data: [{name: "14AER280R", author: "John", description: "Життя – це низка виборів, і кожен новий день дає нам можливість рухатися вперед.", time: getDate(), userId: 1},
-            {name: "YE289VB31", author: "Kate", description: "Мандруй туди, де душа знаходить спокій.", time: getDate(), userId: 1},
-            {name: "NT963JL65", author: "Dan", description: "Знання – це сила! Кожен день приносить нові можливості дізнатися більше і зрости.  ", time: getDate(), userId: 1},
-            {name: "LP754DZ26", author: "Sarbina", description: "Піклуйся про себе сьогодні, щоб завтра почуватися ще краще!  ", time: getDate(), userId: 1}]}
+        data: [{name: "Арбуз", author: "Новый пользователь чата", description: "Я попробовал арбуз, а Старий Бог мой хук на вкус.", tagId: 1, time: getDate(), userId: 1},
+            {name: "Пища", author: "Новый пользователь чата", description: "Пищи нет вкуснее каши, Старий Бог синок параши.", tagId: 1, time: getDate(), userId: 1},
+            {name: "Че парни..", author: "Stariy", description: "Че парни, неделю не играл, норм играю?? ОТВЕЧААААЙТЕ мне!!", tagId: 2, time: getDate(), userId: 1},
+            {name: "Ферма", author: "Новый пользователь чата", description: "Сегодня мер разрушил ферму, Старий Бог глотает..", tagId: 1, time: getDate(), userId: 1}]}
     )
 }
 
@@ -100,7 +111,8 @@ async function main(){
     // await findPosts();
     // await findPost();
     // await updatePost();
-    // await createPosts();
+    await createPosts();
+    // await createTag();
 }
 
 main().then(() => {
