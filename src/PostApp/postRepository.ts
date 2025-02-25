@@ -5,7 +5,11 @@ const client = new PrismaClient();
 
 async function getAllPosts() {
     try {
-        const posts = await client.post.findMany();
+        const posts = await client.post.findMany({
+            include: {
+                Tags: true,
+            }
+        });
         return posts;
     } catch (error) {
         console.error(error);
@@ -17,6 +21,9 @@ async function getPostById(id: number) {
     try {
         const post = await client.post.findUnique({
             where: { id },
+            include: {
+                Tags: true,
+            }
         });
         return post;
     } catch (error) {
@@ -27,7 +34,12 @@ async function getPostById(id: number) {
 
 async function createPost(data: CreatePost) {
     try {
-        const post = await client.post.create({ data });
+        const post = await client.post.create({
+            data: data,
+            include: {
+                Tags: true,
+            }
+        });
         return post;
     } catch (error) {
         console.error(error);

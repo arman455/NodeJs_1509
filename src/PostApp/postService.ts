@@ -1,9 +1,8 @@
 import postRepository from "./postRepository";
-import { Prisma } from '@prisma/client';
 import { IError, ISuccess } from "../types/type";
-import { CreatePost, Post } from './type'
+import { CreatePost, PostWithTags } from './type'
 
-async function allPosts(): Promise<ISuccess<Post[]> | IError> {
+async function allPosts(): Promise<ISuccess<PostWithTags[]> | IError> {
     try {
         const posts = await postRepository.getAllPosts();
 
@@ -18,7 +17,7 @@ async function allPosts(): Promise<ISuccess<Post[]> | IError> {
     }
 }
 
-async function createPost(data: CreatePost): Promise<ISuccess<Post> | IError> {
+async function createPost(data: CreatePost): Promise<ISuccess<PostWithTags> | IError> {
     try {
         const post = await postRepository.createPost(data);
 
@@ -33,7 +32,7 @@ async function createPost(data: CreatePost): Promise<ISuccess<Post> | IError> {
     }
 }
 
-async function getPostById(id: number): Promise<ISuccess<Post> | IError> {
+async function getPostById(id: number): Promise<ISuccess<PostWithTags> | IError> {
     try {
         const post = await postRepository.getPostById(id);
 
@@ -48,9 +47,9 @@ async function getPostById(id: number): Promise<ISuccess<Post> | IError> {
     }
 }
 
-async function deletePost(id: number): Promise<ISuccess<Post> | IError> {
+async function deletePost(id: number): Promise<ISuccess<PostWithTags> | IError> {
     try {
-        const post = await postRepository.deletePost(id);
+        const post = await postRepository.deletePost(id) as PostWithTags;
 
         if (!post) {
             return { status: 'error', message: 'Post not found' };
