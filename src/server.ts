@@ -7,7 +7,11 @@ import postRouterApi from './PostApp/postRouterApi';
 import commentRouterApi from './CommentsApp/commentRouterApi';
 import tagsControllerApi from './TagsApp/tagsRouter';
 import cors from 'cors'
+import dotenv from 'dotenv'
+import userRouterApi from './RegAuthApp/userRouterApi';
+import { authTokenMiddleware } from './middlewares/authTokenMiddleware';
 
+dotenv.config()
 
 const app: Express = express();
 const PORT = 8000;
@@ -23,8 +27,16 @@ app.use(cors({
 app.use('/api/post/', postRouterApi)
 app.use('/api/comment/', commentRouterApi)
 app.use('/api/tags/', tagsControllerApi)
+app.use('/api/user/', userRouterApi)
 
-
+// fetch("http://localhost:8000/api/user/me", {
+//     method: "GET",
+//     headers: {
+//         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUpwWkNJNk1pd2lhV0YwSWpveE56UXdPRFk1TlRVNUxDSmxlSEFpT2pFM05EQTROek14TlRsOS5JXzBCVVlrZXBKTXdZWXFVX292M2pSU3dfUlJYUVE5LWxoVldNclpzenJNIiwiaWF0IjoxNzQwODY5NTU5LCJleHAiOjE3NDA4NzMxNTl9.oRUrpLy4QA3vcPL1KQzJJ1ief9rotU7nTXCxnrfZKzM"
+//     }
+// }).then(response => {
+//     console.log(response);
+// }) 
 
 app.use('/', userRouter);
 

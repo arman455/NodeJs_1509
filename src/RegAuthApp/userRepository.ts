@@ -57,10 +57,39 @@ async function createUser(data: CreateUser) {
     }
 }
 
+async function findUserById(userId: number){
+    try {
+        const user = await client.user.findUnique({
+            where: {
+                id: userId
+            }
+        });
+        return user;
+
+    } catch (err) {
+        console.log(err)
+        if (err instanceof Prisma.PrismaClientKnownRequestError){
+            if (err.code == 'P2002'){
+                console.log(err.message);
+                throw err;
+            }
+            if (err.code == 'P2015'){
+                console.log(err.message);
+                throw err;
+            }
+            if (err.code == 'P20019'){
+                console.log(err.message);
+                throw err;
+            }
+        }
+    }
+
+}
 
 const userRepository = {
     findUserByEmail: findUserByEmail,
-    createUser: createUser
+    createUser: createUser,
+    findUserById: findUserById
 };
 
 export default userRepository;

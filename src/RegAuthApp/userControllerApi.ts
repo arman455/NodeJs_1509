@@ -1,7 +1,5 @@
-import express, { Express, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import userService from './userService';
-import { SECRET_KEY } from '../config/token';
-import { sign } from 'jsonwebtoken';
 
 async function authUser(req: Request, res: Response) {
     const data = req.body
@@ -12,9 +10,8 @@ async function authUser(req: Request, res: Response) {
         return
     }
 
-    const token = sign(result.data, SECRET_KEY, { expiresIn: '1h' })
-    res.cookie('token', token)
-    res.status(200).json({ status: "success", token: token })
+    res.cookie('token', {login: result.data})
+    res.status(200)
 }
 
 async function registerUser(req: Request, res: Response) {
@@ -26,20 +23,30 @@ async function registerUser(req: Request, res: Response) {
         return
     }
 
-    const token = sign(result.data, SECRET_KEY, { expiresIn: '1h' })
-    res.cookie('token', token)
-    res.status(200).json({ status: "success", token: token })
+    res.cookie('token', {reg: result.data})
+    res.status(200)
 }
 
 async function logoutUser(req: Request, res: Response) {
-    res.clearCookie('token');
-    res.status(200).json({ status: "success", message: "Logged out successfully" });
+    res.clearCookie('token')
+    res.status(200).json({ status: "success", message: "Logged out successfully" })
+}
+
+async function aboutUser(req: Request, res: Response){
+    const userId = res.locals.userId
+    const result = await userService.getUserById(userId)
+
+    if (result.status === 'error') {
+        res.status(400)
+    }
+    res.status(200).json({ user: result });
 }
 
 const userControllerApi = {
     authUser: authUser,
     registerUser: registerUser,
     logoutUser: logoutUser,
+    aboutUser: aboutUser
 };
 
 export default userControllerApi

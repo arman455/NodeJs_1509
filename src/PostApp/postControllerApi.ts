@@ -7,9 +7,13 @@ async function allPostsController(req: Request, res: Response) {
 }
 
 async function postByIdController(req: Request, res: Response) {
-    const id = req.params.id;
-    const context = await postService.getPostById(+id);
-    res.json(context);
+    const id = req.params.id
+    const context = await postService.getPostById(+id)
+    if (context.status === "error") {
+        res.status(404).json({ message: 'Post not found' })
+        return
+    }
+    res.json(context.data)
 }
 
 const postControllerApi = {

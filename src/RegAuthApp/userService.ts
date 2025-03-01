@@ -1,9 +1,11 @@
 import { IError, ISuccess } from "../types/type";
 import userRepository from "./userRepository";
 import { CreateUser, User } from './types'
-import bcryptjs from 'bcryptjs';
+import { compare, hash } from 'bcryptjs';
+import { sign } from "jsonwebtoken";
+import { SECRET_KEY } from "../config/token";
 
-async function login(email: string, password: string): Promise< ISuccess<User> | IError > {
+async function login(email: string, password: string): Promise< ISuccess<string> | IError > {
 
     const user = await userRepository.findUserByEmail(email);
 
@@ -11,32 +13,31 @@ async function login(email: string, password: string): Promise< ISuccess<User> |
         return { status: "error", message: "User not found"};
     }
 
-    const isPasswordValid = await bcryptjs.compare(password, user.password);
+    const isPasswordValid = await compare(password, user.password);
 
     if (!isPasswordValid) {
         return { status: "error", message: "Password is incorrect" };
     }
 
-    return { status: "success", data: user};
+    const token = sign({id: user.id}, SECRET_KEY, { expiresIn: '1h' })
+
+    return { status: "success", data: token};
 
 }
 
-async function register(data: CreateUser): Promise< IError | ISuccess<User>>{
+async function register(data: CreateUser): Promise< IError | ISuccess<string>>{
 
     const user = await userRepository.findUserByEmail(data.email)
-    console.log(user);
 
     if (user) {
         return { status: "error", message: "User exists!"};
     }
 
-    const hashedPassword = await bcryptjs.hash(data.password, 10);
+    const hashedPassword = await hash(data.password, 10);
 
     const userData = {
-        username: data.username,
-        email: data.email,
+        ...data,
         password: hashedPassword,
-        role: "user"
     }
 
     const newUser = await userRepository.createUser(userData);
@@ -45,14 +46,27 @@ async function register(data: CreateUser): Promise< IError | ISuccess<User>>{
         return { status: "error", message: "User not create!"};
     }
 
-    return { status: "success", data: newUser};
+    const token = sign({id: newUser.id}, SECRET_KEY, {expiresIn: '1d'})
 
+    return { status: "success", data: token};
+
+}
+
+async function getUserById(userId: number): Promise< IError | ISuccess<User>>{
+    const user = await userRepository.findUserById(userId)
+
+    if (!user) {
+        return { status: "error", message: "User not found!"}
+    }
+
+    return { status: "success", data: user}
 }
 
 
 const userService =  {
     login: login,
-    register: register
+    register: register,
+    getUserById: getUserById
 };
 
 export default userService;
