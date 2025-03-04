@@ -57,11 +57,18 @@ async function createUser(data: CreateUser) {
     }
 }
 
-async function findUserById(userId: number){
+async function findUserById(id: number){
     try {
         const user = await client.user.findUnique({
             where: {
-                id: userId
+                id: id
+            },
+            select:{
+                id: true,
+                email: true,
+                password: true,
+                username: true,
+                role: true
             }
         });
         return user;

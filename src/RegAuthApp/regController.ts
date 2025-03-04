@@ -14,8 +14,7 @@ async function authRegistrtation (req: Request, res: Response){
         return
     }
 
-    const token = sign(result.data, SECRET_KEY, {expiresIn: "1h"})
-    res.cookie('token', token)
+    res.cookie('token', result.data)
     res.status(200)
     res.send("Ви зареєстровані!")
 

@@ -19,7 +19,7 @@ async function login(email: string, password: string): Promise< ISuccess<string>
         return { status: "error", message: "Password is incorrect" };
     }
 
-    const token = sign({id: user.id}, SECRET_KEY, { expiresIn: '1h' })
+    const token = sign({id: user.id}, SECRET_KEY, { expiresIn: '1d' })
 
     return { status: "success", data: token};
 
@@ -52,8 +52,8 @@ async function register(data: CreateUser): Promise< IError | ISuccess<string>>{
 
 }
 
-async function getUserById(userId: number): Promise< IError | ISuccess<User>>{
-    const user = await userRepository.findUserById(userId)
+async function getUserById(id: number): Promise< IError | ISuccess<User>>{
+    const user = await userRepository.findUserById(id)
 
     if (!user) {
         return { status: "error", message: "User not found!"}

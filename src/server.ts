@@ -9,7 +9,6 @@ import tagsControllerApi from './TagsApp/tagsRouter';
 import cors from 'cors'
 import dotenv from 'dotenv'
 import userRouterApi from './RegAuthApp/userRouterApi';
-import { authTokenMiddleware } from './middlewares/authTokenMiddleware';
 
 dotenv.config()
 
@@ -32,7 +31,7 @@ app.use('/api/user/', userRouterApi)
 // fetch("http://localhost:8000/api/user/me", {
 //     method: "GET",
 //     headers: {
-//         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdGF0dXMiOiJzdWNjZXNzIiwiZGF0YSI6ImV5SmhiR2NpT2lKSVV6STFOaUlzSW5SNWNDSTZJa3BYVkNKOS5leUpwWkNJNk1pd2lhV0YwSWpveE56UXdPRFk1TlRVNUxDSmxlSEFpT2pFM05EQTROek14TlRsOS5JXzBCVVlrZXBKTXdZWXFVX292M2pSU3dfUlJYUVE5LWxoVldNclpzenJNIiwiaWF0IjoxNzQwODY5NTU5LCJleHAiOjE3NDA4NzMxNTl9.oRUrpLy4QA3vcPL1KQzJJ1ief9rotU7nTXCxnrfZKzM"
+//         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQxMDg3MDc4LCJleHAiOjE3NDExNzM0Nzh9.fjJN5KyGq8xI8-uwqGNXMnIjFkwSn59876d_KF2R_8o.HSbUIFAI3OLBB8fYKVmlVb0HI_P35tUO2tNwSYDkQr4"
 //     }
 // }).then(response => {
 //     console.log(response);

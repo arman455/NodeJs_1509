@@ -2,6 +2,12 @@ import { Request, Response, NextFunction } from "express";
 import { verify } from "jsonwebtoken";
 import { SECRET_KEY } from "../config/token";
 
+interface IToken{
+    iat: number
+    exp: number
+    id: number
+}
+
 export function authTokenMiddleware(req: Request, res: Response, next: NextFunction) {
     const authHeader = req.headers.authorization;
 
@@ -17,10 +23,9 @@ export function authTokenMiddleware(req: Request, res: Response, next: NextFunct
     }
 
     try {
-        const decoded = verify(token, SECRET_KEY) as { userId: number };
-        res.locals.userId = decoded.userId;
-        console.log("11", authHeader)
-        console.log("22", decoded)
+        const decoded = verify(token, SECRET_KEY) as IToken
+        res.locals.userId = decoded.id
+        console.log("22: ", decoded)
         next();
 
     } catch (error) {

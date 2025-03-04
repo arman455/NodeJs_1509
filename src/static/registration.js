@@ -11,7 +11,8 @@ forma.addEventListener('submit', (event)=>{
         body: JSON.stringify({
             username: username.value,
             email: email.value,
-            password: password.value
+            password: password.value,
+            role: 'user'
         }),
         headers: {
             'Content-Type': 'application/json'
