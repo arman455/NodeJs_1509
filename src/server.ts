@@ -31,7 +31,7 @@ app.use('/api/user/', userRouterApi)
 // fetch("http://localhost:8000/api/user/me", {
 //     method: "GET",
 //     headers: {
-//         "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQxMDg3MDc4LCJleHAiOjE3NDExNzM0Nzh9.fjJN5KyGq8xI8-uwqGNXMnIjFkwSn59876d_KF2R_8o.HSbUIFAI3OLBB8fYKVmlVb0HI_P35tUO2tNwSYDkQr4"
+//         "Authorization": "Bearer "
 //     }
 // }).then(response => {
 //     console.log(response);
