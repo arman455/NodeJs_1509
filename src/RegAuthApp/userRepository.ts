@@ -2,6 +2,7 @@ import { Prisma, PrismaClient } from '@prisma/client';
 import client from '../Client/prismaClient';
 import { CreateUser } from './types';
 
+
 async function findUserByEmail(email: string) {
     try {
         const user = await client.user.findUnique({

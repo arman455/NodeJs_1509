@@ -51,7 +51,7 @@ async function register(data: CreateUser): Promise< IError | ISuccess<string>>{
     return { status: "success", data: token};
 
 }
-
+// Данные о пароле не должны идти юзеру 
 async function getUserById(id: number): Promise< IError | ISuccess<User>>{
     const user = await userRepository.findUserById(id)
 

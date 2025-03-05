@@ -13,7 +13,8 @@ async function registerUser(req: Request, res: Response) {
     res.json(result);
 
 }
-
+// Контроллер API не работаетс куками, токен будет хранится иначе
+// асинхронность здесь также не нужна
 async function logoutUser(req: Request, res: Response) {
     res.clearCookie('token')
     res.status(200).json({ status: "success", message: "Logged out successfully" })

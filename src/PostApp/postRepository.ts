@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import { CreatePost } from './type';
-
+// Здесь это не надо, у тебя есть папка Client с клиентом призмы
 const client = new PrismaClient();
 
 async function getAllPosts() {

@@ -1,3 +1,4 @@
+// Импорт не используется, нужно убрать
 import { Prisma, PrismaClient } from '@prisma/client';
 import { CreateComment } from './types';
 

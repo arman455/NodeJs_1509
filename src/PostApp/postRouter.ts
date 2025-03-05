@@ -1,3 +1,4 @@
+// Импорт не используется, нужно убрать
 import express, { Express, Request, Response } from 'express'
 const router = express.Router();
 import postController from './postController';
