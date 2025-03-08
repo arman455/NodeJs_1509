@@ -12,23 +12,23 @@ export function authTokenMiddleware(req: Request, res: Response, next: NextFunct
     const authHeader = req.headers.authorization;
 
     if (!authHeader) {
-        res.status(400)
-        return 
+        res.json({status: 'error', message: 'authorization required'})
+        return
     }
 
     const [bearer, token] = authHeader.split(" ");
 
     if (bearer !== "Bearer" || !token) {
-        res.status(401)
+        res.json({status: 'error', message: 'authorization is invalid'})
+        return
     }
 
     try {
         const decoded = verify(token, SECRET_KEY) as IToken
         res.locals.userId = decoded.id
-        console.log("22: ", decoded)
         next();
 
     } catch (error) {
-        res.status(401)
+        res.json({status: 'error', message: 'token is invalid'})
     }
 }

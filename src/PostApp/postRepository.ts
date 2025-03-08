@@ -1,7 +1,5 @@
-import { PrismaClient } from '@prisma/client';
 import { CreatePost } from './type';
-
-const client = new PrismaClient();
+import client from '../Client/prismaClient';
 
 async function getAllPosts() {
     try {

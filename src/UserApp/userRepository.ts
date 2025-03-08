@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from '@prisma/client';
+import { Prisma } from '@prisma/client';
 import client from '../Client/prismaClient';
 import { CreateUser } from './types';
 

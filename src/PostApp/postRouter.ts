@@ -1,6 +1,7 @@
-import express, { Express, Request, Response } from 'express'
-const router = express.Router();
+import express from 'express'
 import postController from './postController';
+
+const router = express.Router();
 
 router.post('/create', postController.createPost)
 

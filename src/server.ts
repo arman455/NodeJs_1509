@@ -2,13 +2,13 @@ import express, { Express, Request, Response } from 'express'
 import path from 'path';
 import moment from "moment"
 import router from './PostApp/postRouter';
-import userRouter from './RegAuthApp/userRouter';
+import userRouter from './UserApp/userRouter';
 import postRouterApi from './PostApp/postRouterApi';
 import commentRouterApi from './CommentsApp/commentRouterApi';
 import tagsControllerApi from './TagsApp/tagsRouter';
 import cors from 'cors'
 import dotenv from 'dotenv'
-import userRouterApi from './RegAuthApp/userRouterApi';
+import userRouterApi from './UserApp/userRouterApi';
 
 dotenv.config()
 

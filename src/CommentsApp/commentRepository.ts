@@ -1,7 +1,5 @@
-import { Prisma, PrismaClient } from '@prisma/client';
 import { CreateComment } from './types';
-
-const client = new PrismaClient();
+import client from '../Client/prismaClient';
 
 async function getCommentsByPostId(postid: number) {
     try {

@@ -8,16 +8,3 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Post {
-  id          Int      @id @default(autoincrement())
-  name        String
-  author      String
-  description String?
-  time        String
-  userId      Int
-  tagId       Int?
-  Coment      Coment[]
-  User User @relation(fields: [userId], references: [id])
-  Tags Tags? @relation(fields: [tagId], references: [id])
-  
-}
