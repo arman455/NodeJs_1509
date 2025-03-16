@@ -4,4 +4,4 @@ export type Post = Prisma.PostGetPayload<{}>
 
 export type CreatePost = Prisma.PostUncheckedCreateInput
 
-export type PostWithTags = Prisma.PostGetPayload<{ include: { Tags: true } }>
+export type PostWithTagsComments = Prisma.PostGetPayload<{ include: { Tags: true, Coment: true } }>

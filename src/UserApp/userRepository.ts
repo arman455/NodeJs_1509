@@ -4,12 +4,13 @@ import { CreateUser } from './types';
 
 async function findUserByEmail(email: string) {
     try {
+        console.log(email)
         const user = await client.user.findUnique({
             where: {
-                email: email
+                email: email,
             }
         });
-        
+        console.log(user)
         return user;
 
     } catch (err) {
@@ -66,7 +67,6 @@ async function findUserById(id: number){
             select:{
                 id: true,
                 email: true,
-                password: true,
                 username: true,
                 role: true
             }

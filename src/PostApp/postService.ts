@@ -1,9 +1,9 @@
 import postRepository from "./postRepository";
 import { IError, ISuccess } from "../types/type";
-import { CreatePost, Post, PostWithTags } from './type'
+import { CreatePost, Post, PostWithTagsComments } from './type'
 
-async function allPosts(): Promise<ISuccess<PostWithTags[]> | IError> {
-    const posts = await postRepository.getAllPosts()
+async function allPosts(): Promise<ISuccess<PostWithTagsComments[]> | IError> {
+    const posts = await postRepository.getAllPostsWithComments()
 
     if (!posts) {
         return { status: 'error', message: 'No posts found' }
@@ -13,7 +13,7 @@ async function allPosts(): Promise<ISuccess<PostWithTags[]> | IError> {
 
 }
 
-async function createPost(data: CreatePost): Promise<ISuccess<PostWithTags> | IError> {
+async function createPost(data: CreatePost): Promise<ISuccess<PostWithTagsComments> | IError> {
     const post = await postRepository.createPost(data)
 
     if (!post) {
@@ -23,8 +23,8 @@ async function createPost(data: CreatePost): Promise<ISuccess<PostWithTags> | IE
     return { status: 'success', data: post }
 }
 
-async function getPostById(id: number): Promise<ISuccess<PostWithTags> | IError> {
-    const post = await postRepository.getPostById(id);
+async function getPostById(id: number): Promise<ISuccess<PostWithTagsComments> | IError> {
+    const post = await postRepository.getPostWithCommentsById(id);
 
     if (!post) {
         return { status: 'error', message: 'Post not found' }

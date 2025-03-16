@@ -92,15 +92,15 @@ async function updateComent() {
 }
 
 async function main(){
-    await createComent();
+    // await createComent();
     await createComents();
-    await deleteComent();
-    await findComent();
-    await findComentDetal();
-    await updateComent();
+    // await deleteComent();
+    // await findComent();
+    // await findComentDetal();
+    // await updateComent();
 }
 
-findComentDetal().then(() => {
+main().then(() => {
     prisma.$disconnect()
 }).catch((err) => {
     console.log(err)

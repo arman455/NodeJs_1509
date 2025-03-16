@@ -10,7 +10,7 @@ async function login(email: string, password: string): Promise< ISuccess<string>
     const user = await userRepository.findUserByEmail(email);
 
     if (!user){
-        return { status: "error", message: "User not found"};
+        return { status: "error", message: "User not found!!"};
     }
 
     const isPasswordValid = await compare(password, user.password);

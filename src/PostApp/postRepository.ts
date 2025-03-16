@@ -18,7 +18,7 @@ async function getAllPosts() {
 async function getPostById(id: number) {
     try {
         const post = await client.post.findUnique({
-            where: { id },
+            where: { id: id },
             include: {
                 Tags: true,
             }
@@ -36,6 +36,7 @@ async function createPost(data: CreatePost) {
             data: data,
             include: {
                 Tags: true,
+                Coment: true,
             }
         });
         return post;
@@ -63,6 +64,7 @@ async function getAllPostsWithComments() {
         const posts = await client.post.findMany({
             include: {
                 Coment: true,
+                Tags: true,
             },
         });
         return posts;
@@ -80,6 +82,7 @@ async function getPostWithCommentsById(postId: number) {
             },
             include: {
                 Coment: true,
+                Tags: true,
             },
         });
         return post;

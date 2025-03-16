@@ -7,6 +7,7 @@
     "start": "node src/server.js",
     "server": "npx ts-node src/server.ts",
     "prisma:seed": "ts-node prisma/seed.ts",
+    "prisma:seedComment": "ts-node prisma/seedComent.ts",
     "migrate": "prisma migrate dev"
   },
   "author": "",
